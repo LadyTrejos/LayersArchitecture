@@ -33,7 +33,7 @@ public class LibroDAO implements LibroDAOLocal {
 
     @Override
     public List<Libro> verLibros() {
-        return em.createNamedQuery("Libros.verTodos").getResultList();
+        return em.createNamedQuery("Libro.verTodos").getResultList();
     }
     
 }
