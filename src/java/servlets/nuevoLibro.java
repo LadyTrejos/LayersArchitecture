@@ -45,14 +45,14 @@ public class nuevoLibro extends HttpServlet {
         String titulo = request.getParameter("titulo");
         String autor = request.getParameter("autor");
         String isbn = request.getParameter("isbn");
-        String copias;
-        copias = request.getParameter("copias");
+        String paginas = request.getParameter("paginas");
+        String copias = request.getParameter("copias");
         
-        Libro libro = new Libro(isbn, titulo, autor, JSType.toInteger(copias));
-        
+        Libro libro = new Libro(isbn, titulo, autor,JSType.toInteger(paginas), JSType.toInteger(copias));
+        libroDAO.verLibros();
         libroDAO.agregarLibro(libro);
-        
-        response.sendRedirect("");
+        libroDAO.verLibros();
+        response.sendRedirect("/Biblioteca/faces/libros.xhtml?i=0");
         
     }
 

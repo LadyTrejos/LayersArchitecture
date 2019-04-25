@@ -16,5 +16,8 @@ public interface CiudadanoDAOLocal {
     Ciudadano buscarCiudadano(int cedula);
 
     List<Ciudadano> verCiudadanos();
+
+    void prestarLibro(String ISBN, int cedula);
+
     
 }

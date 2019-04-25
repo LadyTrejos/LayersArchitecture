@@ -13,7 +13,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Libros")
-@NamedQueries(@NamedQuery(name = "Libro.verTodos", query="SELECT l FROM Libro l"))
+@NamedQueries(
+        @NamedQuery(name = "Libro.verTodos", query = "SELECT l FROM Libro l"))
 public class Libro implements Serializable {
 
     @Id
@@ -28,21 +29,22 @@ public class Libro implements Serializable {
 
     @Column(name = "Num_Paginas")
     private int num_paginas;
-    
+
     @Column(name = "Num_Ejemplares")
     private int num_ejemplares;
-    
+
     @ManyToMany(mappedBy = "libros")
     private List<Ciudadano> ciudadanos = new ArrayList<>();
 
     public Libro() {
     }
 
-    public Libro(String ISBN, String titulo, String autor, int num_paginas) {
+    public Libro(String ISBN, String titulo, String autor, int num_paginas, int num_ejemplares) {
         this.ISBN = ISBN;
         this.titulo = titulo;
         this.autor = autor;
         this.num_paginas = num_paginas;
+        this.num_ejemplares = num_ejemplares;
     }
 
     public String getISBN() {
@@ -92,7 +94,15 @@ public class Libro implements Serializable {
     public void setCiudadanos(List<Ciudadano> ciudadanos) {
         this.ciudadanos = ciudadanos;
     }
-    
+
+    public void addCiudadano(Ciudadano ciudadano) {
+        ciudadanos.add(ciudadano);
+    }
+
+    public void removeCiudadano(Ciudadano ciudadano) {
+        ciudadanos.remove(ciudadano);
+    }
+
     @Override
     public String toString() {
         return "Libro{" + "ISBN=" + ISBN + ", titulo=" + titulo + ", autor=" + autor + ", num_paginas=" + num_paginas + '}';

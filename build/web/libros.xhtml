@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <title>Biblioteca</title>
+                <link rel="stylesheet" href="css/style.css" />
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <div id="header">
+                <h1>Biblioteca</h1>
+
+                <div id="nav">
+                    <h:form>
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="Libros" outcome="libros.xhtml">
+                                <f:param name="i" value="0" />
+                            </p:menuitem>
+                            <p:menuitem value="Préstamos" outcome="prestamos.xhtml">
+                                <f:param name="i" value="1" />
+                            </p:menuitem>
+                        </p:tabMenu>
+                    </h:form>
+                </div>
+            </div>
+            <div id="main">
+                <h2>Libros</h2>
+
+
+                <p:growl showDetail="true" />
+                <p:tabView orientation="left">
+                    <p:tab title="Nuevo libro">
+                        <h3>Agregar un nuevo libro</h3>
+
+                        <form action="nuevo" method="POST">
+                            <input type="text" name="titulo" placeholder="Titulo" />
+                            <input type="text" name="autor" placeholder="Autor" />
+                            <input type="text" name="isbn" placeholder="ISBN" />
+                            <input type="number" name="paginas" placeholder="Numero de páginas" />
+                            <input type="number" name="copias" placeholder="Copias" />
+                            <input type="submit" value="Agregar libro" />
+                        </form>
+                    </p:tab>
+                    <p:tab title="Devolver libro">
+                        <h3>Devolución de libros</h3>
+
+                        <form action="#" method="post">
+                            <input type="text" placeholder="Libro" name="titulo" />
+                            <input type="number" placeholder="C&eacute;dula" name="cedula" />
+                            <input type="submit" value="Registrar devoluci&oacute;n" />
+                        </form>
+                    </p:tab>
+                    <p:tab title="Buscar libros">
+                        <h3>Buscar libros</h3>
+
+                        <form id="form_buscarLibro" action="#" method="get">
+                            <select form="form_buscarLibro" id="buscarPor" name="buscarPor">
+                                <option value="Titulo">Titulo</option>
+                                <option value="Autor">Autor</option>
+                            </select>
+                            <input type="text" placeholder="Buscar..." name="buscar"/>
+                            <input type="submit" value="Buscar" />
+                        </form>
+                    </p:tab>
+                </p:tabView>
+
+            </div>
+            <div id="footer">
+                <h4>Copyright&copy; 2019</h4>
+            </div>
+        </h:body>
+    </f:view>
+</html>
+

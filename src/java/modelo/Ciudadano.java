@@ -71,6 +71,22 @@ public class Ciudadano implements Serializable{
         this.apellido = apellido;
     }
 
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
+    
+    public void addLibro(Libro libro) {
+        libros.add(libro);
+    }
+    
+    public void removeLibro(Libro libro) {
+        libros.remove(libro);
+    }
+    
     @Override
     public String toString() {
         return "Ciudadano{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + '}';

@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import modelo.Ciudadano;
+import modelo.Libro;
 
 @Stateless
 public class CiudadanoDAO implements CiudadanoDAOLocal {
@@ -34,6 +35,15 @@ public class CiudadanoDAO implements CiudadanoDAOLocal {
     @Override
     public List<Ciudadano> verCiudadanos() {
         return em.createNamedQuery("Ciudadano.verTodos").getResultList();
+    }
+
+    @Override
+    public void prestarLibro(String ISBN, int cedula) {
+        Libro libro = em.find(Libro.class, ISBN);
+        Ciudadano ciudadano = buscarCiudadano(cedula);
+        
+        ciudadano.addLibro(libro);
+        libro.addCiudadano(ciudadano);
     }
 
     

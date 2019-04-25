@@ -26,4 +26,6 @@ public interface LibroDAOLocal {
 
     List<Libro> verLibros();
 
+    List<Libro> buscarLibroPorTitulo(String titulo);
+
 }
