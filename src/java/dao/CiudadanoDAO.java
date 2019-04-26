@@ -12,6 +12,8 @@ public class CiudadanoDAO implements CiudadanoDAOLocal {
     @PersistenceContext
     private EntityManager em;
     
+    private LibroDAOLocal libroDAO;
+    
     @Override
     public void agregarCiudadano(Ciudadano ciudadano) {
         em.persist(ciudadano);
@@ -38,12 +40,34 @@ public class CiudadanoDAO implements CiudadanoDAOLocal {
     }
 
     @Override
-    public void prestarLibro(String ISBN, int cedula) {
-        Libro libro = em.find(Libro.class, ISBN);
+    public boolean prestarLibro(String ISBN, int cedula) {
         Ciudadano ciudadano = buscarCiudadano(cedula);
-        
-        ciudadano.addLibro(libro);
-        libro.addCiudadano(ciudadano);
+        Libro libro = em.find(Libro.class, ISBN);
+        int ejemplares = libro.getNum_ejemplares();
+
+        if (ejemplares == 0) {
+            return false;
+        } else {
+            libro.setNum_ejemplares(ejemplares - 1);
+            ciudadano.getLibros().add(libro);
+            libro.getCiudadanos().add(ciudadano);
+            editarCiudadano(ciudadano);
+            //libroDAO.editarLibro(libro);
+            return true;
+        }
+
+    }
+
+    @Override
+    public void devolverLibro(String isbn, int cedula) {
+        Ciudadano ciudadano = buscarCiudadano(cedula);
+        Libro libro = em.find(Libro.class, isbn);
+        libro.setNum_ejemplares(libro.getNum_ejemplares() + 1);
+
+        ciudadano.getLibros().remove(libro);
+        libro.getCiudadanos().remove(ciudadano);
+        editarCiudadano(ciudadano);
+        //libroDAO.editarLibro(libro);
     }
 
     

@@ -28,4 +28,7 @@ public interface LibroDAOLocal {
 
     List<Libro> buscarLibroPorTitulo(String titulo);
 
+    List<Libro> buscarLibroPorAutor(String autor);
+
+
 }

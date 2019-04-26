@@ -45,6 +45,15 @@ public class LibroDAO implements LibroDAOLocal {
         query.setParameter("titulo", titulo);
         return query.getResultList();
     }
+
+    @Override
+    public List<Libro> buscarLibroPorAutor(String autor) {
+        Query query = em.createQuery("SELECT l FROM Libro l "
+                + "WHERE l.autor = :autor");
+        query.setParameter("autor", autor);
+        return query.getResultList();
+    }
+    
     
 
 }
