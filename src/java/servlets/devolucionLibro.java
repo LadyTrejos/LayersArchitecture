@@ -7,6 +7,7 @@ package biblioteca.servlet;
 
 import dao.CiudadanoDAOLocal;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jdk.nashorn.internal.runtime.JSType;
 
+/**
+ *
+ * @author aleja
+ */
 @WebServlet(name = "devolucionLibro", urlPatterns = {"/devolucion"})
 public class devolucionLibro extends HttpServlet {
     
@@ -34,13 +39,13 @@ public class devolucionLibro extends HttpServlet {
             throws ServletException, IOException {
         
         String isbn;
-        String cedula;
+        int cedula;
         isbn = request.getParameter("isbn");
-        cedula = request.getParameter("cedula");
+        cedula = Integer.parseInt(request.getParameter("cedula"));
         
-        ciudadanoDAO.devolverLibro(isbn, JSType.toInteger(cedula));
+        ciudadanoDAO.devolverLibro(isbn, cedula);
         
-        response.sendRedirect("/Biblioteca/faces/libros.xhtml?i=0");
+        response.sendRedirect("/Biblioteca/faces/libros.xhtml");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package biblioteca.servlet;
 
 import dao.LibroDAOLocal;
 import java.io.IOException;
@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jdk.nashorn.internal.runtime.JSType;
+import modelo.Libro;
 
-import modelo.Libro;;
 
 /**
  *
@@ -41,18 +41,16 @@ public class nuevoLibro extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         String titulo = request.getParameter("titulo");
         String autor = request.getParameter("autor");
         String isbn = request.getParameter("isbn");
-        String paginas = request.getParameter("paginas");
-        String copias = request.getParameter("copias");
+        int paginas = Integer.parseInt(request.getParameter("paginas"));
+        int copias = Integer.parseInt(request.getParameter("copias"));
         
-        Libro libro = new Libro(isbn, titulo, autor,JSType.toInteger(paginas), JSType.toInteger(copias));
-        libroDAO.verLibros();
+        Libro libro = new Libro(isbn, titulo, autor, paginas, copias);
         libroDAO.agregarLibro(libro);
-        libroDAO.verLibros();
-        response.sendRedirect("/Biblioteca/faces/libros.xhtml?i=0");
+        
+        response.sendRedirect("/Biblioteca/faces/libros.xhtml");
         
     }
 

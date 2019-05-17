@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import javax.ejb.Local;
 import modelo.Ciudadano;
+import modelo.Libro;
 
 @Local
 public interface CiudadanoDAOLocal {
@@ -20,4 +21,6 @@ public interface CiudadanoDAOLocal {
     boolean prestarLibro(String ISBN, int cedula);
     
     void devolverLibro(String isbn, int cedula);
+
+    List<Libro> verPrestamosCiudadano(int cedula);
 }

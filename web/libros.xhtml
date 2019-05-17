@@ -13,6 +13,7 @@
                 <title>Biblioteca</title>
                 <link rel="stylesheet" href="css/style.css" />
                 <script src="js/jquery-3.4.0.js"></script>
+                <script src="js/jquery.popupoverlay.js"></script>
                 <script src="js/buscar.js"></script>
             </f:facet>
         </h:head>
@@ -27,9 +28,7 @@
                             <p:menuitem value="Libros" outcome="libros.xhtml">
                                 <f:param name="i" value="0" />
                             </p:menuitem>
-                            <p:menuitem value="Préstamos" outcome="prestamos.xhtml">
-                                <f:param name="i" value="1" />
-                            </p:menuitem>
+                           
                         </p:tabMenu>
                     </h:form>
                 </div>
@@ -37,43 +36,44 @@
             <div id="main">
                 <h2>Libros</h2>
                 
-                    <p:growl showDetail="true" />
-                    <p:tabView orientation="left">
-                        <p:tab title="Nuevo libro">
-                            <h3>Agregar un nuevo libro</h3>
-                            
-                            <form action="nuevo" method="post">
-                                <input type="text" name="titulo" placeholder="Titulo" />
-                                <input type="text" name="autor" placeholder="Autor" />
-                                <input type="text" name="isbn" placeholder="ISBN" />
-                                <input type="text" name="paginas" placeholder="Número de páginas" />
-                                <input type="text" name="copias" placeholder="Copias" />
-                                <input type="submit" value="Agregar libro" />
-                            </form>
-                        </p:tab>
-                        <p:tab title="Devolver libro">
-                            <h3>Devolución de libros</h3>
-                            
-                            <form action="devolucion" method="post">
-                                <input type="text" placeholder="ISBN" name="isbn" />
-                                <input type="number" placeholder="Cédula" name="cedula" />
-                                <input type="submit" value="Registrar devolución" />
-                            </form>
-                        </p:tab>
-                        <p:tab title="Buscar libros">
-                            <h3>Buscar libros</h3>
-                            
-                            <form id="buscarLibro" method="get" action="buscar">
-                                <select form="buscarLibro" id="buscarPor" name="buscarPor">
-                                    <option value="Titulo">Titulo</option>
-                                    <option value="Autor">Autor</option>
-                                </select>
-                                <input type="search" placeholder="Buscar..." name="buscar"/>
-                                <input type="submit" value="Buscar" />
-                            </form>
-                            <div id="resultado"></div>
-                        </p:tab>
-                    </p:tabView>            </div>
+                <p:growl showDetail="true" />
+                <p:tabView orientation="left">
+                    <p:tab title="Nuevo libro">
+                        <h3>Agregar un nuevo libro</h3>
+
+                        <form action="nuevo" method="post">
+                            <input type="text" name="titulo" placeholder="Titulo" />
+                            <input type="text" name="autor" placeholder="Autor" />
+                            <input type="text" name="isbn" placeholder="ISBN" />
+                            <input type="text" name="paginas" placeholder="Número de páginas" />
+                            <input type="text" name="copias" placeholder="Copias" />
+                            <input type="submit" value="Agregar libro" />
+                        </form>
+                    </p:tab>
+                    <p:tab title="Devolver libro">
+                        <h3>Devolución de libros</h3>
+
+                        <form action="devolucion" method="post">
+                            <input type="text" placeholder="ISBN" name="isbn" />
+                            <input type="number" placeholder="Cédula" name="cedula" />
+                            <input type="submit" value="Registrar devolución" />
+                        </form>
+                    </p:tab>
+                    <p:tab title="Buscar libros">
+                        <h3>Buscar libros</h3>
+
+                        <form id="buscarLibro" method="get" action="buscar">
+                            <select form="buscarLibro" id="buscarPor" name="buscarPor">
+                                <option value="Titulo">Titulo</option>
+                                <option value="Autor">Autor</option>
+                            </select>
+                            <input type="search" placeholder="Buscar..." name="buscar"/>
+                            <input type="submit" value="Buscar" />
+                        </form>
+                        <div id="resultado"></div>
+                    </p:tab>
+                </p:tabView>
+            </div>
             <div id="footer">
                 <h4>Copyright&copy; 2019</h4>
             </div>

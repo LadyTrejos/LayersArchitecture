@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import dao.LibroDAOLocal;
 import java.io.IOException;
@@ -17,13 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Libro;
 
-/**
- *
- * @author jd
- */
 @WebServlet(urlPatterns = {"/buscar"})
 public class buscarLibro extends HttpServlet {
-    
+
     @EJB
     private LibroDAOLocal libroDAO;
 
@@ -38,25 +29,65 @@ public class buscarLibro extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String buscarPor = request.getParameter("buscarPor");
         String buscar = request.getParameter("buscar");
-        List<Libro> libros = new ArrayList<Libro>();
-        
+        List<Libro> libros = new ArrayList<>();
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        if (buscarPor.equals("Titulo")) {
+
+        if (buscar.isEmpty()){
+            libros = libroDAO.verLibros();
+        }else if (buscarPor.equals("Autor")) {
+            libros = libroDAO.buscarLibroPorAutor(buscar);
+        } else if (buscarPor.equals("Titulo")) {
             libros = libroDAO.buscarLibroPorTitulo(buscar);
-            
-            for(Libro libro: libros) {
-                out.println("<p>");
-                out.println("<h4>" + libro.getTitulo() + "</h4>");
-                out.println(libro.getAutor());
-                out.println("</p>");
-                out.print("<br />");
-            }
         }
+
+        for (Libro libro : libros) {
+            out.println("<div  id='" + libro.getISBN() + "' class='popupInfo'>");
+            out.println("<div class='popup-content'>");
+            out.println("<span id='" + libro.getISBN() + "' class='close' onclick='closeInfo(this.id)'>&times;</span>");
+
+            out.println("<div class='dataLibro'>");
+            out.println("<h4>Titulo: " + libro.getTitulo() + "</h4>");
+            out.println("<h5>Autor: " + libro.getAutor() + "</h5>");
+            out.println("<h5>ISBN: " + libro.getISBN() + "</h5>");
+            out.println("<h5>Ejemplares disponibles: " + libro.getNum_ejemplares() + "</h5>");
+            out.println("</div>");
+
+            out.println("<form action='prestar' method='post'>");
+            out.println("<input type='hidden' value='" + libro.getISBN() + "' name='isbn'/>");
+            out.println("<input type='checkbox' onchange='registro(this.checked)' name='check' value='1'/>");
+            out.println("<label>El ciudadano ya se encuentra registrado.</label>");
+            out.println("</br>");
+            out.println("<input type='text' placeholder='Nombre' id='registroNombre' name='nombre' />");
+            out.println("<input type='text' placeholder='Apellidos' id='registroApellido' name='apellido' />");
+            out.println("<input type='number' placeholder='Cédula' name='cedula' />");
+            out.println("</br>");
+            if (libro.getNum_ejemplares() == 0) {
+                out.println("<input disabled type='submit' value='Realizar préstamo' />");
+                out.println("</br>");
+                out.println("<label style=\"color:red;\">No hay ejemplares disponibles.</label>");
+            } else {
+                out.println("<input type='submit' value='Realizar préstamo' />");
+
+            }
+            out.println("</form>");
+            out.println("</div>");
+            out.println("</div>");
+
+            out.println("<div class='infoLibro'>");
+            out.println("<div class='dataLibro'>");
+            out.println("<h4>Titulo: " + libro.getTitulo() + "</h4>");
+            out.println("<h5>Autor: " + libro.getAutor() + "</h5>");
+            out.println("</div>");
+            out.println("<button id='" + libro.getISBN() + "'   onclick='popupLibroInfo(this.id)'>Prestar</button>");
+            out.println("<hr />");
+            out.println("</div>");
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

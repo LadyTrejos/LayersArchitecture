@@ -4,7 +4,22 @@
  * and open the template in the editor.
  */
 
+function popupLibroInfo(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+function closeInfo(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+function registro(checked) {
+    document.getElementById("registroNombre").disabled = checked;
+    document.getElementById("registroApellido").disabled = checked;
+}
+
 $(document).on("submit", "#buscarLibro", function(event) {
+    $("#resultado").html("");
+   
     var $form = $(this);
 
     $.get($form.attr("action"), $form.serialize(), function(responseText) {

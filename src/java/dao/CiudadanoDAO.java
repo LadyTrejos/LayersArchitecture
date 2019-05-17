@@ -70,5 +70,14 @@ public class CiudadanoDAO implements CiudadanoDAOLocal {
         //libroDAO.editarLibro(libro);
     }
 
+    @Override
+    public List<Libro> verPrestamosCiudadano(int cedula) {
+        Ciudadano ciudadano = buscarCiudadano(cedula);
+        List<Libro> libros = ciudadano.getLibros();
+        return libros;
+    }
+    
+    
+
     
 }
